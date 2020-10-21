@@ -10,6 +10,15 @@ export class Entry {
     public date?: string,
     public paid?: boolean,
     public categoryId?: number,
-    public category?: Category,
-  ){}
+    public category?: Category
+  ) {}
+
+  static types = {
+    expense: 'Despesa',
+    revenue: 'Receita',
+  };
+
+  get paidText(): string {
+    return this.paid ? 'Pago' : 'Pendente';
+  }
 }
