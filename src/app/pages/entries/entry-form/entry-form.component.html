@@ -27,7 +27,7 @@
           <label for="type">Tipo</label>
 
           <select name="type" id="type" formControlName="type" class="form-control">
-            <option *ngFor="let type of typeOptions" value="type.value">{{ type.text }}</option>
+            <option *ngFor="let option of opcoes" [value]="option.value">{{option.text}}</option>
           </select>
 
           <div class="text-danger" *ngIf="entryForm.get('type').invalid && entryForm.get('type').touched">

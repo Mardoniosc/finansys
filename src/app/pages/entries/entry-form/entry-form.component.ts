@@ -34,6 +34,8 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     radix: ',',
   };
 
+  opcoes = null;
+
   ptBR = {
     firstDayOfWeek: 0,
     dayNames: [
@@ -92,6 +94,7 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     this.buildEntryForm();
     this.loadEntry();
     this.loadCategories();
+    this.opcoes = this.typeOptions;
   }
 
   ngAfterContentChecked() {
@@ -108,12 +111,14 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     }
   }
 
-  get typeOptions() : Array<any> {
+  get typeOptions(): Array<any> {
     return Object.entries(Entry.types).map(
-      ([value, text]) => ({
-        text: text,
-        value: value
-      })
+      ([value, text]) => {
+        return {
+          text: text,
+          value: value,
+        }
+      }
     )
   }
 
