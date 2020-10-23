@@ -9,27 +9,34 @@ import { BaseResourceModel } from '../models';
 export abstract class BaseResourceService<T extends BaseResourceModel> {
   protected http: HttpClient;
 
-  constructor(protected apiPath: string, protected injector: Injector) {
+  constructor(
+    protected apiPath: string,
+    protected injector: Injector,
+    protected jsonDataToResourceFn: (jsonData: any) => T
+  ) {
     this.http = injector.get(HttpClient);
   }
 
   getAll(): Observable<T[]> {
     return this.http
       .get<T[]>(this.apiPath)
-      .pipe(catchError(this.handleError), map(this.jsonDataToResources));
+      .pipe(
+        catchError(this.handleError),
+        map(this.jsonDataToResources.bind(this))
+      );
   }
 
   getById(id: number): Observable<T> {
     const url = `${this.apiPath}/${id}`;
     return this.http
       .get(url)
-      .pipe(catchError(this.handleError), map(this.jsonDataToResource));
+      .pipe(catchError(this.handleError), map(this.jsonDataToResource.bind(this)));
   }
 
   create(resource: T): Observable<T> {
     return this.http
       .post(this.apiPath, resource)
-      .pipe(catchError(this.handleError), map(this.jsonDataToResource));
+      .pipe(catchError(this.handleError), map(this.jsonDataToResource.bind(this)));
   }
 
   update(resource: T): Observable<T> {
@@ -51,12 +58,14 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
   // PROTECTED METHODS
   protected jsonDataToResources(jsonData: any[]): T[] {
     const resources: T[] = [];
-    jsonData.forEach((element) => resources.push(element as T));
+    jsonData.forEach((element) =>
+      resources.push(this.jsonDataToResourceFn(element))
+    );
     return resources;
   }
 
   protected jsonDataToResource(jsonData: any[]): T {
-    return (jsonData as unknown) as T;
+    return this.jsonDataToResourceFn(jsonData);
   }
 
   protected handleError(error: any): Observable<any> {
