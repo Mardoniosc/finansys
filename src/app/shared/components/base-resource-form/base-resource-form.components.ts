@@ -1,5 +1,5 @@
 import { OnInit, AfterContentChecked, Injector } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import toastr from 'toastr';
@@ -115,11 +115,13 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel>
   protected actionForSuccess(resource: T) {
     toastr.success('Solicitação processada com sucesso!');
 
-    const baseComponentPath: string = this.route.snapshot.url[0].path;
+    const baseComponentPath: string = this.route.snapshot.parent.url[0].path;
 
     this.router
       .navigateByUrl(baseComponentPath, { skipLocationChange: true })
-      .then(() => this.router.navigate([baseComponentPath, resource.id, 'edit']));
+      .then(() =>
+        this.router.navigate([baseComponentPath, resource.id, 'edit'])
+      );
   }
 
   protected actionForError(err) {
