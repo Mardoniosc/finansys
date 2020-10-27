@@ -5,6 +5,7 @@ import {
   BreadCrumbComponent,
   PageHeaderComponent,
   FormFieldErrorComponent,
+  ServerErrorMessagesComponent,
 } from './components';
 import { RouterModule } from '@angular/router';
 
@@ -13,6 +14,7 @@ import { RouterModule } from '@angular/router';
     BreadCrumbComponent,
     PageHeaderComponent,
     FormFieldErrorComponent,
+    ServerErrorMessagesComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   exports: [
@@ -25,6 +27,7 @@ import { RouterModule } from '@angular/router';
     BreadCrumbComponent,
     PageHeaderComponent,
     FormFieldErrorComponent,
+    ServerErrorMessagesComponent,
   ],
 })
 export class SharedModule {}
