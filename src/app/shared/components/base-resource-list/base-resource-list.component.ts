@@ -4,7 +4,7 @@ import { BaseResourceService } from '../../services';
 
 export abstract class BaseResourceListComponent<T extends BaseResourceModel>
   implements OnInit {
-  entries: T[] = [];
+  resources: T[] = [];
 
   constructor(
     protected resourceService: BaseResourceService<T>
@@ -12,17 +12,17 @@ export abstract class BaseResourceListComponent<T extends BaseResourceModel>
 
   ngOnInit() {
     this.resourceService.getAll().subscribe(
-      (entries) => (this.entries = entries.sort((a, b) => b.id - a.id)),
+      (resources) => (this.resources = resources.sort((a, b) => b.id - a.id)),
       (error) => alert('Erro ao carregar a lista' + error)
     );
   }
 
-  deleteEntry(resource: T) {
+  deleteResource(resource: T) {
     const mustDelete = confirm('Deseja realmente excluir este item?');
     if (mustDelete) {
       this.resourceService.delete(resource.id).subscribe(
         () =>
-          (this.entries = this.entries.filter(
+          (this.resources = this.resources.filter(
             (element) => element !== resource
           )),
         () => alert('Erro na exclusão')
