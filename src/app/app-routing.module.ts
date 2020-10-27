@@ -4,9 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: 'entries',
-    loadChildren: () => import('./pages/entries/entries.module').then(
-      (m) => m.EntriesModule
-    ),
+    loadChildren: () =>
+      import('./pages/entries/entries.module').then((m) => m.EntriesModule),
   },
   {
     path: 'categories',
@@ -14,6 +13,11 @@ const routes: Routes = [
       import('./pages/categories/categories.module').then(
         (m) => m.CategoriesModule
       ),
+  },
+  {
+    path: 'reports',
+    loadChildren: () =>
+      import('./pages/reports/reports.module').then((m) => m.ReportsModule),
   },
 ];
 
