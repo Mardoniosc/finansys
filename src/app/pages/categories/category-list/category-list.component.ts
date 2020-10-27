@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CategoryService, Category } from '../shared';
-import { BaseResourceListComponent } from 'src/app/shared/components/base-resource-list/base-resource-list.component';
+import { BaseResourceListComponent } from 'src/app/shared';
 
 @Component({
   selector: 'app-category-list',
