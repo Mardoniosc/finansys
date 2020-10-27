@@ -59,7 +59,66 @@ export class ReportsComponent implements OnInit {
     } else {
       this.entryService
         .getByMonthAndYear(month, year)
-        .subscribe((entries) => (this.entries = entries));
+        .subscribe(this.setValues.bind(this));
     }
+  }
+
+  private setValues(entries: Entry[]) {
+    this.entries = entries;
+    this.calculeteBalance();
+    this.setChartData();
+  }
+
+  private calculeteBalance() {
+    let expenseTotal = 0;
+    let revenueTotal = 0;
+
+    this.entries.forEach((e) => {
+      if (e.type === 'revenue') {
+        revenueTotal += currencyFormatter.unformat(e.amount, { code: 'BRL' });
+      } else {
+        expenseTotal += currencyFormatter.unformat(e.amount, { code: 'BRL' });
+      }
+    });
+
+    this.expenseTotal = currencyFormatter.format(expenseTotal, { code: 'BRL' });
+    this.revenueTotal = currencyFormatter.format(revenueTotal, { code: 'BRL' });
+    this.balance = currencyFormatter.format(revenueTotal - expenseTotal, {
+      code: 'BRL',
+    });
+  }
+
+  private setChartData() {
+    const chartData = [];
+
+    this.categories.forEach((category) => {
+      const filteredEntries = this.entries.filter(
+        (e) => e.categoryId === category.id && e.type === 'revenue'
+      );
+
+      if (filteredEntries.length > 0) {
+        const totalAmound = filteredEntries.reduce(
+          (total, entry) =>
+            total + currencyFormatter.unformat(entry.amount, { code: 'BRL' }),
+          0
+        );
+
+        chartData.push({
+          categoryName: category.name,
+          totalAmount: totalAmound,
+        });
+      }
+    });
+
+    this.revenueChartData = {
+      labels: chartData.map((item) => item.categoryName),
+      datasets: [
+        {
+          label: 'Gráfico de Receitas',
+          backgroundColor: '#9CCC65',
+          data: chartData.map((item) => item.totalAmount),
+        },
+      ],
+    };
   }
 }
