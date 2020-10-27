@@ -89,11 +89,25 @@ export class ReportsComponent implements OnInit {
   }
 
   private setChartData() {
+    this.revenueChartData = this.getChartData(
+      'revenue',
+      'Gráfico de Receitas',
+      '#9CCC65'
+    );
+
+    this.expenseChartData = this.getChartData(
+      'expense',
+      'Gráficos de Despesas',
+      '#E03131'
+    );
+  }
+
+  private getChartData(entryType: string, title: string, color: string) {
     const chartData = [];
 
     this.categories.forEach((category) => {
       const filteredEntries = this.entries.filter(
-        (e) => e.categoryId === category.id && e.type === 'revenue'
+        (e) => e.categoryId === category.id && e.type === entryType
       );
 
       if (filteredEntries.length > 0) {
@@ -110,12 +124,12 @@ export class ReportsComponent implements OnInit {
       }
     });
 
-    this.revenueChartData = {
+    return {
       labels: chartData.map((item) => item.categoryName),
       datasets: [
         {
-          label: 'Gráfico de Receitas',
-          backgroundColor: '#9CCC65',
+          label: title,
+          backgroundColor: color,
           data: chartData.map((item) => item.totalAmount),
         },
       ],

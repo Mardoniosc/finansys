@@ -8,6 +8,6 @@ import { ReportsComponent } from './reports';
 
 @NgModule({
   declarations: [ReportsComponent],
-  imports: [SharedModule, ReportsRoutingModule],
+  imports: [SharedModule, ReportsRoutingModule, ChartModule],
 })
 export class ReportsModule {}
