@@ -1,6 +1,7 @@
 import { Category } from 'src/app/pages/categories/shared';
+import { BaseResourceModel } from 'src/app/shared';
 
-export class Entry {
+export class Entry extends BaseResourceModel {
   constructor(
     public id?: number,
     public name?: string,
@@ -11,7 +12,13 @@ export class Entry {
     public paid?: boolean,
     public categoryId?: number,
     public category?: Category
-  ) {}
+  ) {
+    super();
+  }
+
+  static fromJson(jsonData: any): Entry {
+    return Object.assign(new Entry(), jsonData);
+  }
 
   static types = {
     expense: 'Despesa',
