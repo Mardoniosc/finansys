@@ -15,7 +15,7 @@ export class EntryService extends BaseResourceService<Entry> {
     protected injector: Injector,
     protected categoryService: CategoryService
   ) {
-    super('api/entries', injector, Entry.fromJson);
+    super('api/entries.php', injector, Entry.fromJson);
   }
 
   create(entry: Entry): Observable<Entry> {
