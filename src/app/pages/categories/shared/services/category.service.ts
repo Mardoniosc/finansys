@@ -10,6 +10,6 @@ import { environment as env } from "src/environments/environment";
 })
 export class CategoryService extends BaseResourceService<Category> {
   constructor(protected injector: Injector) {
-    super('/api/categories.php', injector, Category.fromJson);
+    super(env.baseURL + '/categories.php', injector, Category.fromJson);
   }
 }

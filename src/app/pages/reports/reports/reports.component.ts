@@ -16,6 +16,8 @@ export class ReportsComponent implements OnInit {
   revenueTotal: any = 0;
   balance: any = 0;
 
+  anos: Array<number> = [];
+
   expenseChartData: any;
   revenueChartData: any;
 
@@ -46,6 +48,8 @@ export class ReportsComponent implements OnInit {
     this.categoryService
       .getAll()
       .subscribe((categories) => (this.categories = categories));
+
+    this.gerarListaDeAnos();
   }
 
   generateReports() {
@@ -102,12 +106,21 @@ export class ReportsComponent implements OnInit {
     );
   }
 
+  private gerarListaDeAnos() {
+    const now = new Date();
+    const anoatual = now.getFullYear();
+
+    for (let i = 2018; i <= anoatual; i++) {
+      this.anos.push(i);
+    }
+  }
+
   private getChartData(entryType: string, title: string, color: string) {
     const chartData = [];
 
     this.categories.forEach((category) => {
       const filteredEntries = this.entries.filter(
-        (e) => e.categoryId === category.id && e.type === entryType
+        (e) => e.category_id === category.id && e.type === entryType
       );
 
       if (filteredEntries.length > 0) {

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseURL: 'http://localhost:8081/v1',
+  baseURL: 'http://api.finansys.com.br/v1',
 };
 
 /*

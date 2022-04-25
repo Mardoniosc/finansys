@@ -5,6 +5,7 @@ import { Entry } from '../models';
 import { CategoryService } from 'src/app/pages/categories/shared';
 import { Observable } from 'rxjs';
 import { flatMap, catchError, map } from 'rxjs/operators';
+import { environment as env } from 'src/environments/environment';
 import * as moment from 'moment';
 
 @Injectable({
@@ -15,7 +16,7 @@ export class EntryService extends BaseResourceService<Entry> {
     protected injector: Injector,
     protected categoryService: CategoryService
   ) {
-    super('api/entries.php', injector, Entry.fromJson);
+    super(env.baseURL + '/entries.php', injector, Entry.fromJson);
   }
 
   create(entry: Entry): Observable<Entry> {
@@ -36,7 +37,7 @@ export class EntryService extends BaseResourceService<Entry> {
     entry: Entry,
     sendFn: any
   ): Observable<Entry> {
-    return this.categoryService.getById(entry.categoryId).pipe(
+    return this.categoryService.getById(entry.category_id).pipe(
       flatMap((category) => {
         entry.category = category;
         return sendFn(entry);

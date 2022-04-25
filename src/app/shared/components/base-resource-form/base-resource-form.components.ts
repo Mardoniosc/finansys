@@ -71,7 +71,6 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel>
         .subscribe(
           (resource) => {
             this.resource = resource;
-            console.log(resource);
             this.resourceForm.patchValue(this.resource);
           },
           (err) => console.error('Erro ao carregar a categoria', err)

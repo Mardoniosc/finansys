@@ -103,7 +103,7 @@ export class EntryFormComponent
       amount: [null, [Validators.required]],
       date: [null, [Validators.required]],
       paid: [true, [Validators.required]],
-      categoryId: [null, [Validators.required]],
+      category_id: [null, [Validators.required]],
     });
   }
 
