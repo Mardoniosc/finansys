@@ -19,6 +19,28 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/reports/reports.module').then((m) => m.ReportsModule),
   },
+  {
+    path: 'users',
+    loadChildren: () =>
+      import('./pages/users/users.module').then((m) => m.UsersModule),
+  },
+  {
+    path: 'profiles',
+    loadChildren: () =>
+      import('./pages/profiles/profiles.module').then((m) => m.ProfilesModule),
+  },
+  {
+    path: 'permitions',
+    loadChildren: () =>
+      import('./pages/permitions/permitions.module').then(
+        (m) => m.PermitionsModule
+      ),
+  },
+  {
+    path: 'logs',
+    loadChildren: () =>
+      import('./pages/logs/logs.module').then((m) => m.LogsModule),
+  },
 
   { path: '', redirectTo: '/reports', pathMatch: 'full' },
 ];
