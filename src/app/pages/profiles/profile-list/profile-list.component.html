@@ -1,1 +1,23 @@
-<p>profile-list works!</p>
+<app-bread-crumb [items]="[{text: 'Perfils'}]"></app-bread-crumb>
+
+<app-page-header page-title="Perfils" button-text="+ Novo perfil" button-link="new" button-class="btn-success"></app-page-header>
+
+<table class="table table-houver">
+  <thead>
+    <tr class="bg-primary text-light">
+      <th>Perfils</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let profile of resources">
+      <td>
+        <strong>{{ profile.name }}</strong><br />
+      </td>
+      <td>
+        <a [routerLink]="[profile.id, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
+        <a (click)="deleteResource(profile)" class="btn btn-outline-danger btn-sm">Excluir</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,6 +1,7 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Category } from './pages/categories/shared';
 import { Entry } from './pages/entries/shared';
+import { Profile } from './pages/profiles/shared';
 
 export class InMemoryDatabase implements InMemoryDbService {
   createDb() {
@@ -180,6 +181,12 @@ export class InMemoryDatabase implements InMemoryDbService {
         type: 'expense',
       } as Entry,
     ];
-    return { categories, entries };
+
+    const profiles: Profile[] = [
+      { id: 1 , name: 'Root'},
+      { id: 2 , name: 'Administrador'},
+      { id: 3 , name: 'Comum'},
+    ];
+    return { categories, entries, profiles };
   }
 }
