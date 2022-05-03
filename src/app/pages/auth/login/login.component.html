@@ -1,0 +1,23 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first mt-4 mb-2">
+      <img src="../../../../assets/user.svg" width="100px" height="100px" id="icon" alt="User Icon" />
+    </div>
+
+    <!-- Login Form -->
+    <form [formGroup]="form">
+      <input type="text" class="fadeIn second" formControlName="email" placeholder="E-mail">
+      <input type="password" class="fadeIn third" formControlName="senha" placeholder="Senha">
+      <input type="button" class="fadeIn fourth" value="Logar" (click)="logar()">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" [routerLink]="['/login/forgot']" >Esqueci minha senha?</a>
+    </div>
+
+  </div>
+</div>

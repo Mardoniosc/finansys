@@ -41,8 +41,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/logs/logs.module').then((m) => m.LogsModule),
   },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./pages/auth/auth.module').then((m) => m.AuthModule),
+  },
 
-  { path: '', redirectTo: '/reports', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({
